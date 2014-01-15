@@ -1,0 +1,113 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Woda.Views.Users.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FF4687FF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}">
+            	<Run Text="Woda"/>
+            	<LineBreak/>
+            	<Run/>
+            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="PageTitle" Text="Files" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="60"/>
+                <Button x:Name="ButtonAddFile" Click="ButtonAddFile_Click" Grid.Column="1" Margin="0,0,70,0" BorderThickness="0" HorizontalAlignment="Right" Width="80" Height="80" VerticalAlignment="Bottom">
+                    <Image Source="/Resources/Images/new_file.png" Width="30" Height="30"/>
+                </Button>
+                <Button x:Name="ButtonAddFolder" Click="ButtonAddFolder_Click" Grid.Column="1" Margin="0,0,0,0" BorderThickness="0" Width="80" Height="80" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    <Image Source="/Resources/Images/new_folder.png"/>
+                </Button>
+            </Grid>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+
+                <ListBox Margin="10,10,10,10" Name="FilesList" HorizontalContentAlignment="Stretch" SelectionChanged="FilesSelectionChanged" Hold="FilesList_Hold">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="62" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image  Source="{Binding _Icon}" Width="38" Height="38" Margin="4,4,20,4" HorizontalAlignment="Left" />
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding _Name}" FontSize="22" Foreground="White" Grid.Row="0" />
+                                        <TextBlock Text="{Binding _SizeAndDate}" FontSize="14" Foreground="#FF3C3B3B" Grid.Row="1"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="50" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image x:Name="Public" Source="{Binding _PublicIcon}" Width="42" Height="42" Margin="4,4,4,4" Grid.Column="0"/>
+                                        <Image x:Name="Favorite" Source="{Binding _FavoriteIcon}" Width="42" Height="42" Margin="4,4,4,4" Grid.Column="1"/>
+                                    </Grid>
+                                </Grid>
+                                <Line X1="200" Y1="0"  Margin="50,0,0,0"  StrokeThickness="1" Stroke="#FFE4E4E4" Stretch="Fill"></Line>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="MenuHome" IconUri="/Assets/AppBar/folder.png" Text="Home" Click="Home_Click"/>
+            <shell:ApplicationBarIconButton x:Name="MenuFavorites" IconUri="/Assets/AppBar/favs.png" Text="Favorites" Click="MenuFavorites_Click"/>
+            <shell:ApplicationBarIconButton x:Name="MenuPublic" IconUri="/Assets/AppBar/share.png" Text="Public" Click="MenuPublic_Click"/>
+            <shell:ApplicationBarIconButton x:Name="MenuRecent" IconUri="/Resources/Images/menu_recent.png" Text="Recent" Click="MenuRecent_Click"/>
+
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="MenuLogin" Text="Login" IsEnabled="False"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuServer" Text="Server" IsEnabled="False"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuUsage" Text="Usage" IsEnabled="False"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuFAQ" Text="FAQ" Click="MenuFAQ_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuLegalNotice" Text="Legal Notice" Click="MenuLegalNotice_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuContact" Text="Contact" Click="MenuContact_Click"/>
+                <shell:ApplicationBarMenuItem x:Name="MenuLogout" Text="Unlink this device and logout" Click="MenuLogout_Click"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
