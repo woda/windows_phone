@@ -52,7 +52,7 @@ namespace Woda
         }
 
         // method to log a user in
-        public void LoginUser(string login, string password)
+        public void LoginUser(string login, string password, bool autologin = true)
         {
             var request = new RestRequest("users/{login}/login", Method.POST);
         
@@ -66,7 +66,8 @@ namespace Woda
                     return;
 
                 Data.Instance._User = response.Data.user;
-
+                if (autologin)
+                    Data.Instance.StoreLoginInformations();
                 Debug.WriteLine("Logged in as : " + Data.Instance._User.login);
                 App.RootFrame.Navigate(new Uri("/Views/Users/Home.xaml", UriKind.Relative));
             });
@@ -83,6 +84,7 @@ namespace Woda
                 App.RootFrame.Navigate(new Uri("/Views/Login.xaml", UriKind.Relative));
                _CookieSet = false;
                 Data.Instance._NavigationFoldersIDs.Clear();
+                Data.Instance.ClearLoginInformations();
             });
         }
     }

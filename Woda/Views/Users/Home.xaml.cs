@@ -22,7 +22,6 @@ namespace Woda.Views.Users
 {
     public partial class Home : PhoneApplicationPage
     {
-
         public object _CurrentMenu { get; set; }
 
         public Home()

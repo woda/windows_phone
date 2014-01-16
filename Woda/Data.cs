@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO.IsolatedStorage;
 
 namespace Woda
 {
@@ -15,6 +16,7 @@ namespace Woda
         public Cookie _SessionCookie { get; set; }
         public static Dictionary<string, string> _Types { get; set; }
         public static Dictionary<string, string> _FileFormat { get; set; }
+        public LoginInformations _LoginInformations { get; set; }
 
         private static volatile Data instance;
         private static object syncRoot = new Object();
@@ -85,5 +87,28 @@ namespace Woda
             public string _PublicIcon { get; set; }
         }
 
+        public class LoginInformations
+        {
+            public string _Server { get; set; }
+            public string _Login { get; set; }
+            public string _Password { get; set; }
+        }
+
+        public void StoreLoginInformations()
+        {
+            IsolatedStorageSettings localStorage = IsolatedStorageSettings.ApplicationSettings;
+            localStorage.Add("LoginInformations", _LoginInformations);
+            localStorage.Save();
+        }
+
+        public void ClearLoginInformations()
+        {
+            IsolatedStorageSettings localStorage = IsolatedStorageSettings.ApplicationSettings;
+            if (localStorage.Contains("LoginInformations"))
+            {
+                localStorage.Remove("LoginInformations");
+                localStorage.Save();
+            }
+        }
     }
 }

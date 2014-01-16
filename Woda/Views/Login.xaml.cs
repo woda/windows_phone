@@ -11,6 +11,7 @@ using Woda.Resources;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.IO.IsolatedStorage;
 
 namespace Woda
 {
@@ -22,6 +23,7 @@ namespace Woda
             InitializeComponent();
 
             this.updateRequestBaseUrl();
+            this.LoadLoginInformations();
         }
 
         private void updateRequestBaseUrl()
@@ -35,10 +37,23 @@ namespace Woda
         {
             if (!this.Check_Fields())
                 return;
+            Data.Instance._LoginInformations = new Data.LoginInformations() { _Server = ServerAddress.Text, _Login = LoginBox.Text, _Password = Password.Password };
             Request.Instance._CookieSet = false;
             Data.Instance._NavigationFoldersIDs.Clear();
             Request request = Request.Instance;
             request.LoginUser(LoginBox.Text, Password.Password);
+        }
+
+        private void LoadLoginInformations()
+        {
+            IsolatedStorageSettings localStorage = IsolatedStorageSettings.ApplicationSettings;
+            if (localStorage.Contains("LoginInformations"))
+            {
+                Data.LoginInformations infos = (Data.LoginInformations)localStorage["LoginInformations"];
+                Request request = Request.Instance;
+                request.SetBaseUrl(infos._Server);
+                request.LoginUser(infos._Login, infos._Password, false);
+            }
         }
 
         private bool Check_Fields()
@@ -65,7 +80,9 @@ namespace Woda
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             // cancel the navigation
+            Application.Current.Terminate();
             e.Cancel = true;
         }
     }
+
 }

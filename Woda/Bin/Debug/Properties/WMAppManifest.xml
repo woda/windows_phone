@@ -2,7 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
   <App xmlns="" ProductID="{77d0c987-95f0-4dca-96cd-8b96170e692d}" Title="Woda" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Woda author" Description="Sample description" Publisher="Woda" PublisherID="{36cd29ea-684b-4e6b-9786-8f4bacb3f4a7}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Resources\Images\logoTrayFilled.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -16,9 +16,9 @@
     <Tokens>
       <PrimaryToken TokenID="WodaToken" TaskName="_default">
         <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+          <SmallImageURI IsRelative="true" IsResource="false">Resources\Images\logoTrayFilled.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Resources\Images\logoTrayFilled.png</BackgroundImageURI>
           <Title>Woda</Title>
           <BackContent></BackContent>
           <BackBackgroundImageURI></BackBackgroundImageURI>
