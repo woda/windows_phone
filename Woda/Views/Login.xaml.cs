@@ -33,7 +33,7 @@ namespace Woda
             Debug.WriteLine("Base url updated to : " + ServerAddress.Text);
         }
 
-        private void Login_Click(object sender, RoutedEventArgs e)
+        private  void Login_Click(object sender, RoutedEventArgs e)
         {
             if (!this.Check_Fields())
                 return;
@@ -41,7 +41,7 @@ namespace Woda
             Request.Instance._CookieSet = false;
             Data.Instance._NavigationFoldersIDs.Clear();
             Request request = Request.Instance;
-            request.LoginUser(LoginBox.Text, Password.Password);
+            this.DoLogin(LoginBox.Text, Password.Password);
         }
 
         private void LoadLoginInformations()
@@ -52,9 +52,25 @@ namespace Woda
                 Data.LoginInformations infos = (Data.LoginInformations)localStorage["LoginInformations"];
                 Request request = Request.Instance;
                 request.SetBaseUrl(infos._Server);
-                request.LoginUser(infos._Login, infos._Password, false);
+                LoginBox.Text = infos._Login;
+                ServerAddress.Text = infos._Server;
+                Password.Password = infos._Password;
+                this.DoLogin(infos._Login, infos._Password, false);
             }
         }
+
+        private async void DoLogin(string login, string password, bool autologin = true)
+        {
+            LoginButton.IsEnabled = false;
+            LoginButton.Content = "Connecting";
+            Request request = Request.Instance;
+
+            bool val = await request.LoginUser(login, password, autologin);
+
+            LoginButton.Content = "Log in";
+            LoginButton.IsEnabled = true; 
+        }
+
 
         private bool Check_Fields()
         {

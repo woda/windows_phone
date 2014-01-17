@@ -45,17 +45,24 @@ namespace Woda
 
        private bool HandleResponse<T>(RestSharp.IRestResponse<T> response) where T : Response
        {
-           this.SetCookie(response);
            Debug.WriteLine(response.Content);
 
-           if (response.StatusCode != System.Net.HttpStatusCode.OK)
-               return false;
+           if (response.Data == null)
+           {
+               MessageBox.Show("Server is not responding", "Error", MessageBoxButton.OK);
+               return false;    
+           }
 
            if (!String.IsNullOrEmpty(response.Data.error))
            {
                MessageBox.Show(response.Data.message, "Error" , MessageBoxButton.OK);
                return false;
            }
+
+           if (response.StatusCode != System.Net.HttpStatusCode.OK)
+               return false;
+
+           this.SetCookie(response);
 
            if (!response.Data.success)
                return false;

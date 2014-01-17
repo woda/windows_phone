@@ -184,6 +184,7 @@
     <Content Include="Resources\Images\list_icon_movie.png" />
     <Content Include="Resources\Images\list_icon_music.png" />
     <Content Include="Resources\Images\list_icon_picture.png" />
+    <Content Include="Resources\Images\logo.png" />
     <Content Include="Resources\Images\logoAlt.png" />
     <Content Include="Resources\Images\logoTrayFilled.png" />
     <Content Include="Resources\Images\menu_favorites.png" />

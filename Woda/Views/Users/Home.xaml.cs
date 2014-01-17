@@ -96,9 +96,9 @@ namespace Woda.Views.Users
             if (link == null)
                 return;
             MediaPlayerLauncher mediaPlayerLauncher = new MediaPlayerLauncher();
-
+          
             mediaPlayerLauncher.Media = new Uri(link, UriKind.Absolute);
-            mediaPlayerLauncher.Location = MediaLocationType.Data;
+           // mediaPlayerLauncher.Location = MediaLocationType.Data;
 
             if (MediaType == @"video")
             {
@@ -107,7 +107,7 @@ namespace Woda.Views.Users
             }
             else
             {
-                mediaPlayerLauncher.Orientation = MediaPlayerOrientation.Portrait;
+                mediaPlayerLauncher.Orientation = MediaPlayerOrientation.Landscape;
                 mediaPlayerLauncher.Controls = MediaPlaybackControls.None;
             }
 

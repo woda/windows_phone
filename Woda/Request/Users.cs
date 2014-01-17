@@ -27,10 +27,10 @@ namespace Woda
             {
                 if (!this.HandleResponse<UserResponse>(response))
                     return;
-              Data.Instance._User = response.Data.user;
+                Data.Instance._User = response.Data.user;
 
-              Debug.WriteLine("Signed up and Logged in as : " + Data.Instance._User.login);
-              App.RootFrame.Navigate(new Uri("/Views/Users/Home.xaml", UriKind.Relative));
+                Debug.WriteLine("Signed up and Logged in as : " + Data.Instance._User.login);
+                App.RootFrame.Navigate(new Uri("/Views/Users/Home.xaml", UriKind.Relative));
             });
 
         }
@@ -52,25 +52,30 @@ namespace Woda
         }
 
         // method to log a user in
-        public void LoginUser(string login, string password, bool autologin = true)
+        public async Task<bool> LoginUser(string login, string password, bool autologin = true)
         {
+            var tcs = new TaskCompletionSource<bool>();
             var request = new RestRequest("users/{login}/login", Method.POST);
-        
+
             request.AddUrlSegment("login", login);
 
             request.AddParameter("password", password);
 
             var asyncHandle = _Client.ExecuteAsync<UserResponse>(request, response =>
            {
-                if (!this.HandleResponse<UserResponse>(response))
-                    return;
-
-                Data.Instance._User = response.Data.user;
-                if (autologin)
-                    Data.Instance.StoreLoginInformations();
-                Debug.WriteLine("Logged in as : " + Data.Instance._User.login);
-                App.RootFrame.Navigate(new Uri("/Views/Users/Home.xaml", UriKind.Relative));
-            });
+               if (!this.HandleResponse<UserResponse>(response))
+               {
+                   tcs.SetResult(false);
+                   return;
+               }
+               tcs.SetResult(true);
+               Data.Instance._User = response.Data.user;
+               if (autologin)
+                   Data.Instance.StoreLoginInformations();
+               Debug.WriteLine("Logged in as : " + Data.Instance._User.login);
+               App.RootFrame.Navigate(new Uri("/Views/Users/Home.xaml", UriKind.Relative));
+           });
+            return await tcs.Task;
         }
 
         // method to log a user out
@@ -82,7 +87,7 @@ namespace Woda
                 if (!this.HandleResponse<UserResponse>(response))
                     return;
                 App.RootFrame.Navigate(new Uri("/Views/Login.xaml", UriKind.Relative));
-               _CookieSet = false;
+                _CookieSet = false;
                 Data.Instance._NavigationFoldersIDs.Clear();
                 Data.Instance.ClearLoginInformations();
             });

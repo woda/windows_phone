@@ -49,13 +49,13 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBox x:Name="ServerAddress" Height="72" Margin="0,148,0,0" TextWrapping="Wrap" Text="http://kobhqlt.fr:3000" VerticalAlignment="Top"/>
-            <TextBox x:Name="LoginBox" Height="72" Margin="0,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="test1"/>
-            <PasswordBox x:Name="Password" Height="72" Margin="0,387,0,0" VerticalAlignment="Top" Password="password"/>
+            <TextBox x:Name="ServerAddress" Height="72" Margin="0,148,0,0" TextWrapping="Wrap" Text="http://kobhqlt.fr:3000" VerticalAlignment="Top" TextChanged="ServerAddress_TextChanged"/>
+            <TextBox x:Name="LoginBox" Height="72" Margin="0,268,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <PasswordBox x:Name="Password" Height="72" Margin="0,387,0,0" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,238,0,0" TextWrapping="Wrap" Text="Login" VerticalAlignment="Top" Foreground="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,357,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Foreground="White"/>
             <TextBlock HorizontalAlignment="Left" Margin="10,117,0,0" TextWrapping="Wrap" Text="Server Address" VerticalAlignment="Top" RenderTransformOrigin="0.748,0.671" Foreground="White"/>
-            <Button Content="Log in" Margin="0,507,0,0" Click="Login_Click" HorizontalAlignment="Right" Width="456" Background="#FF007ACC" BorderThickness="0" Height="82" VerticalAlignment="Top"/>
+            <Button x:Name="LoginButton" Content="Log in" Margin="0,507,0,0" Click="Login_Click" HorizontalAlignment="Right" Width="456" Background="#FF007ACC" BorderThickness="0" Height="82" VerticalAlignment="Top"/>
             <Image Height="100" Margin="178,0" VerticalAlignment="Top" Source="/Resources/Images/logo.png"/>
 
         </Grid>
